@@ -1,0 +1,48 @@
+body{
+    background-color: #dfdfdf;
+}
+
+.content {
+    width: 1000px;
+    margin: 0px auto;
+    overflow: hidden;
+}
+.content ul {
+    list-style-type: none;
+}
+.content ul li {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+.content_left{
+    width: 660px;
+    float: left;
+    overflow: hidden;
+}
+.content_left img{
+    width: 22px;
+    height: 22px;
+    margin: 0px 10px;
+    vertical-align: middle;
+}
+.content_right{
+    width: 260px;
+    float: left;
+    overflow: hidden;
+}
+.content_right img{
+    width: 280px;
+    height: 200px;
+}
+
+.content p{
+    color: grey;
+}
+.title{
+    text-decoration: none;
+    color: blue;
+    font-size: 26px;
+}
+

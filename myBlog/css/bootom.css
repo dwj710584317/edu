@@ -1,0 +1,9 @@
+.bottom{
+    color: white;
+    position: absolute;
+    padding: 35px 0px;
+    background-color: #383838;
+    text-align: center;
+    width: 100%;
+    bottom:0px
+}

@@ -1,0 +1,40 @@
+.login{
+    width: 1000px;
+    margin: 0 auto;
+}
+.login p{
+    text-align: center;
+}
+.title1{
+    font-size: 28px;
+    font-family: 微软雅黑;
+}
+.title2{
+    font-size: 15px;
+    font-family: 微软雅黑;
+    color: #999999;
+}
+.textbox{
+    width: 350px;
+    height: 40px;
+    border-radius: 3px;
+    border: 1px solid #e2b709;
+    padding-left: 10px;
+}
+.submit{
+    width: 350px;
+    height: 40px;
+    border: 1px solid #666666;
+    background-color: #F0184d;
+    color: white;
+}
+.button{
+    width: 350px;
+    height: 40px;
+    border: 1px solid #666666;
+    color: black;
+}
+.text{
+    font-size: 15px;
+    color: #666666;
+}

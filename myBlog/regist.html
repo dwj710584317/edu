@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <link type="text/css" href="css/login.css" rel="stylesheet"/>
+    <script>
+            window.onload=function () {
+                var btn = document.getElementById("bt_regist")
+                btn.onclick = function () {
+                    var username = document.getElementById("user_name").value;
+                    var userpasswd = document.getElementById("user_passwd").value;
+                    var userconfrimpasswd = document.getElementById("user_confrim_passwd").value;
+                    xmlHttp = GetXmlHttpObject();
+                    if (xmlHttp == null) {
+                        alert("Browser does not support HTTP Request")
+                        return;
+                }
+                    var url = "regist_check.php"
+                    //添加一个随机数，以防服务器使用缓存文件
+                    var data="user_name=" + username+"&user_passwd="+userpasswd+"&user_confirm_passwd="+userconfrimpasswd + "&id="+Math.random();
+
+                    xmlHttp.onreadystatechange=stateChanged;
+                    xmlHttp.open("POST",url,true);
+//post时需要使用，如果响应的格式是其他的，需要更改
+                    xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+//post提交的数据，get为null
+                    xmlHttp.send(data);
+
+                }
+            }
+
+
+
+        function stateChanged() {
+            console.log("1");
+            if (xmlHttp.rade==4||xmlHttp.status==200){
+                console.log("200");
+                    if (xmlHttp.responseText == 1) {
+                        alert("注册成功");
+                        window.location.href="index.html";
+                    } else if (xmlHttp.responseText == 2) {
+                        alert("账号已经存在！");
+                    }
+                console.log(xmlHttp.responseText);
+            }
+        }
+
+        function GetXmlHttpObject() {
+            var xmlHttp = null;
+            try {
+                // Firefox, Opera 8.0+, Safari
+                xmlHttp = new XMLHttpRequest();
+            }
+            catch (e) {
+                // Internet Explorer
+                try {
+                    xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch (e) {
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            }
+            return xmlHttp;
+        }
+    </script>
+</head>
+<body>
+<div class="login">
+    <p><img src="img/58144f924a5da186.gif" alt="logo"></p>
+    <p class="title1">博客,记录生活中的点点滴滴!</p>
+    <p class="title2">在博客中,可以畅所欲言,可以学习IT最新的知识！</p>
+    <form action="" method="POST">
+        <p><input class="textbox" type="text" id="user_name" name="user_name"></p>
+        <p><input class="textbox" type="password" id="user_passwd" name="user_passwd"></p>
+        <p><input class="textbox" type="password" id="user_confrim_passwd" name="user_confrim_passwd"></p>
+        <!--name 属性用于对提交到服务器后的表单数据进行标识-->
+        <p><input class="submit" name="regist" type="button" id="bt_regist" value="注册"></p>
+        <p><input class="button" type="button" value="返回首页" onclick="window.location.href='index.html'"></p>
+    </form>
+</div>
+</body>
+</html>
