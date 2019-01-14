@@ -10,7 +10,7 @@
         while ($arr = mysqli_fetch_array($result)): ?>
             <li>
                 <div class="content_left">
-                    <p><?php echo "<a href='articledetail.php?id={$arr['id']}' class='title'> {$arr['title'] }"?></a></p>
+                    <p><?php echo "<a href='articledetail.php?articleid={$arr['id']}' class='title'> {$arr['title'] }"?></a></p>
                     <p style="margin: 20px 10px 0px 0px">
                         <?php echo $arr['body'] ?></p>
                     <p style="margin-top: 90px">

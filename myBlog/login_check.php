@@ -15,8 +15,12 @@ if (isset($_POST['user_name'])){
     $reslut=$con->query($sql);
     $nub=mysqli_num_rows($reslut);
     if ($nub==1){
+        session_start();
         echo "1";
         setcookie("username",$userName);
+
+        $_SESSION['islogin']=true;
+        $_SESSION['userid']=mysqli_fetch_array($reslut)['id'];
     }else{
 //        echo "账号或密码错误，请检查:".$con->error;
         echo "2";
