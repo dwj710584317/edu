@@ -11,7 +11,7 @@ if (isset($_POST['user_name'])){
     $userPasswd=$_POST['user_passwd'];
     include_once("database.php");
 
-    $sql="select * from `$userdb` where `user`='$userName' and `password`='$userPasswd'" ;
+    $sql="select * from `user_info` where `user`='$userName' and `password`='$userPasswd'" ;
     $reslut=$con->query($sql);
     $nub=mysqli_num_rows($reslut);
     if ($nub==1){

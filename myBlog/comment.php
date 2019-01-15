@@ -16,11 +16,12 @@ if (!isset($islogin)or!$islogin){
 }
 $userid=$_SESSION['userid'];
 $comment_con=$_POST['com_cont'];
+$articleid=$_POST['article_id'];
 include_once("database.php");
-$sql="insert into comment(`userid`,`comment`) values ('$userid','$comment_con')";
+$sql="insert into `comment`(`userid`,`comment`,`articleid`) values('$userid','$comment_con','$articleid')";
 $reslut=$con->query($sql);
-if ($reslut->num_rows==1){
-    echo "<script>alert('评论成功！');window.history.back();</script>";
+if ($reslut){
+    echo "<script>alert('评论成功！');self.location=document.referrer</script>";
 }else{
     echo "<script>alert('插入失败'.$con->error);window.history.back();</script>";
 

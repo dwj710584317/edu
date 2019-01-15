@@ -11,7 +11,7 @@ if (isset($_POST['user_name'])){
     $userPasswd=$_POST['user_passwd'];
     $userConfirmPasswd=$_POST['user_confirm_passwd'];
     include_once("database.php");
-    $sql="select * from `$userdb` where `user`='$userName'" ;
+    $sql="select * from `user_info` where `user`='$userName'" ;
     $reslut=$con->query($sql);
     $nub=mysqli_num_rows($reslut);
     if ($nub==1){
@@ -20,7 +20,7 @@ if (isset($_POST['user_name'])){
         exit;
     }else{
         $now=date('Y-m-d H:i:s');
-        $sql="insert into `$userdb`(`user`,`password`,`update`,`create`) values ('$userName','$userPasswd','$now','$now')" ;
+        $sql="insert into `user_info`(`user`,`password`,`update`,`create`) values ('$userName','$userPasswd','$now','$now')" ;
         $reslut=$con->query($sql);
         if ($reslut){
             echo "1";

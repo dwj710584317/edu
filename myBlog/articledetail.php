@@ -11,9 +11,10 @@
 
     <style type="text/css" rel="stylesheet">
 
-        .main{
+        .main {
             padding-bottom: 108px;
         }
+
         .detail_content {
             width: 1000px;
             margin: 20px auto;
@@ -113,8 +114,16 @@
         .comment-l span {
             vertical-align: middle
         }
-        .comment-list img{
-            vertical-align:middle
+
+        .comment-list img {
+            vertical-align: middle
+        }
+        .comment-list-main{
+            border-bottom: 1px solid #eee;
+            padding: 20px 0px;
+        }
+        .comment-list-user,comment-list-com{
+            padding: 10px 0px;
         }
 
     </style>
@@ -147,26 +156,30 @@ include_once("head.php");
     <div class="comment-l"><img src="img/list.png" width="35px" height="35px"><span>评论列表</span></div>
 
     <div class="comment-list">
-        <div class="commnet-list">
-            <?php
-            $articleid = $_GET['articleid'];
-            $sql = "select * from `comment` where `articleid`='$articleid'";
+        <?php
+        $articleid = $_GET['articleid'];
+        $sql = "SELECT `comment`.articleid,`comment`.`comment`,user_info.`user` FROM `comment` INNER JOIN user_info ON `comment`.userid=user_info.id AND `comment`.articleid= {$articleid}";
 
-            $result = $con->query($sql);
-            $row = $result->num_rows;
-            if ($row == 0) {
+        $result = $con->query($sql);
+        $row = $result->num_rows;
+        if ($row == 0) {
 
-            } else {
-                $listnub = 0;
-                while ($val = mysqli_fetch_array($result)) {
-                    $listnub++;
-                    echo "<span><img src='img/58170f99f2430105.png'>{$val['userid']}</span>";
-                    echo "<span class='cid'>$listnub</span>";
-                    echo "<p>{$val['comment']}</p>";
-                }
+        } else {
+            $listnub = 0;
+            while ($val = mysqli_fetch_array($result)) {
+                $listnub++;
+                echo "<div class='comment-list-main'>";
+                    echo "<div class='comment-list-user'>";
+                        echo "<span><img src='img/58170f99f2430105.png' width='30px' height='30px'><span style='padding-left: 10px'>{$val['user']}</span></span>";
+                        echo "<span style='padding: 0px 8px' class='cid'>#$listnub</span>";
+                    echo "</div>";
+                    echo "<div class='comment-list-com'>";
+                            echo "<p>{$val['comment']}</p>";
+                    echo "</div>";
+                echo "</div>";
             }
-            ?>
-        </div>
+        }
+        ?>
     </div>
 
     <p class="comment_p"><img src="img/5818330b1305a607.png">评论</p>
@@ -181,6 +194,7 @@ include_once("head.php");
         <div class="comment_right">
             <form method="POST" action="comment.php">
                 <textarea name="com_cont" rows="5" cols="80" placeholder="发表评论"></textarea>
+                <input name="article_id" type="hidden"  value="<?php echo "$articleid" ?>">
                 <input name="int_ver" type="text" placeholder="请输入验证码">
                 <?php $rand = rand();
                 echo "<img src='verification.php?r=$rand'>" ?>
