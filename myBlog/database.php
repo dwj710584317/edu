@@ -10,7 +10,6 @@ $host='localhost';
 $user='root';
 $passwd='121212';
 $dbname='userdb';
-$userdb='user_info';
 //设置警告级别
 error_reporting(E_ALL);
 $con=mysqli_connect($host,$user,$passwd,$dbname);

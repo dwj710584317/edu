@@ -10,6 +10,10 @@
     <!--    <link type="text/css" rel="stylesheet" href="css/regist.css">-->
 
     <style type="text/css" rel="stylesheet">
+
+        .main{
+            padding-bottom: 108px;
+        }
         .detail_content {
             width: 1000px;
             margin: 20px auto;
@@ -57,7 +61,7 @@
             padding-left: 10px;
         }
 
-        .comment_edit,.comment-list {
+        .comment_edit, .comment-list {
             padding: 30px;
             margin-top: 10px;
             width: 1000px;
@@ -66,8 +70,6 @@
 
             overflow: hidden;
         }
-
-
 
         .commnet_left {
             float: left;
@@ -111,6 +113,10 @@
         .comment-l span {
             vertical-align: middle
         }
+        .comment-list img{
+            vertical-align:middle
+        }
+
     </style>
 
 
@@ -120,70 +126,73 @@
 <?php
 include_once("head.php");
 ?>
-<div class="detail_content">
-    <?php include_once("database.php");
-    $sql = "select * from `article` where `id`='{$_GET['articleid']}'";
-    $result = $con->query($sql);
-    if (!$result) {
-        exit("请求错误");
-    }
-    $arr = mysqli_fetch_array($result); ?>
-    <p class="detail_title"><?php echo $arr['title'] ?></p>
-    <p class="detail_info">
-        <img src="img/58170f99f2430105.png"/><span> <?php echo $arr['user'] ?></span>
-        <img src="img/58170fbda3f34844.png"/><span> <?php echo $arr['create_time'] ?> </span>
-    </p>
-    <p class="rel">简介</p>
-    <p class="detail_body"><?php echo $arr['body'] ?></p>
-</div>
+<div class="main">
+    <div class="detail_content">
+        <?php include_once("database.php");
+        $sql = "select * from `article` where `id`='{$_GET['articleid']}'";
+        $result = $con->query($sql);
+        if (!$result) {
+            exit("请求错误");
+        }
+        $arr = mysqli_fetch_array($result); ?>
+        <p class="detail_title"><?php echo $arr['title'] ?></p>
+        <p class="detail_info">
+            <img src="img/58170f99f2430105.png"/><span> <?php echo $arr['user'] ?></span>
+            <img src="img/58170fbda3f34844.png"/><span> <?php echo $arr['create_time'] ?> </span>
+        </p>
+        <p class="rel">简介</p>
+        <p class="detail_body"><?php echo $arr['body'] ?></p>
+    </div>
 
-<div class="comment-l"><img src="img/list.png" width="35px" height="35px"><span>评论列表</span></div>
+    <div class="comment-l"><img src="img/list.png" width="35px" height="35px"><span>评论列表</span></div>
 
-<div class="comment-list">
-    <div class="commnet-list">
-        <?php
-            $articleid=$_GET['articleid'];
-            $sql="select * from `comment` where `articleid`='$articleid'";
+    <div class="comment-list">
+        <div class="commnet-list">
+            <?php
+            $articleid = $_GET['articleid'];
+            $sql = "select * from `comment` where `articleid`='$articleid'";
 
-            $result= $con->query($sql);
-            $row=$result->nub_rows;
-            if ($row==0){
-                exit;
-            }else{
-              while ($val=mysqli_fetch_array($result)){
+            $result = $con->query($sql);
+            $row = $result->num_rows;
+            if ($row == 0) {
+
+            } else {
+                $listnub = 0;
+                while ($val = mysqli_fetch_array($result)) {
+                    $listnub++;
                     echo "<span><img src='img/58170f99f2430105.png'>{$val['userid']}</span>";
-                  echo "<span class='cid'>$mysqli_field_tell($result)</span>";
-                  echo "<p>{$val['comment']}</p>";
+                    echo "<span class='cid'>$listnub</span>";
+                    echo "<p>{$val['comment']}</p>";
                 }
             }
-        ?>
-
-        <span><img src="img/58170f99f2430105.png">xx:xx</span>
-        <span class="cid">1</span>
+            ?>
+        </div>
     </div>
-</div>
 
-<p class="comment_p"><img src="img/5818330b1305a607.png">评论</p>
+    <p class="comment_p"><img src="img/5818330b1305a607.png">评论</p>
 
-<div class="comment_edit">
-    <div class="commnet_left">
-        <p>
-            <img src="img/58170f99f2430105.png"><br>
-        <p style="text-align: center">网友</p>
-        </p>
+    <div class="comment_edit">
+        <div class="commnet_left">
+            <p>
+                <img src="img/58170f99f2430105.png"><br>
+            <p style="text-align: center">网友</p>
+            </p>
+        </div>
+        <div class="comment_right">
+            <form method="POST" action="comment.php">
+                <textarea name="com_cont" rows="5" cols="80" placeholder="发表评论"></textarea>
+                <input name="int_ver" type="text" placeholder="请输入验证码">
+                <?php $rand = rand();
+                echo "<img src='verification.php?r=$rand'>" ?>
+                <br>
+                <input class="inp_com" type="submit" value="发布评论">
+            </form>
+        </div>
     </div>
-    <div class="comment_right">
-        <form method="POST" action="comment.php">
-            <textarea name="com_cont" rows="5" cols="80" placeholder="发表评论"></textarea>
-            <input name="int_ver" type="text" placeholder="请输入验证码">
-            <?php $rand = rand();
-            echo "<img src='verification.php?r=$rand'>" ?>
-            <br>
-            <input class="inp_com" type="submit" value="发布评论">
-        </form>
-    </div>
+
 </div>
 <?php include_once('bottom.html') ?>
+
 
 </body>
 </html>
