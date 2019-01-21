@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    #打开Rerite功能
+    RewriteEngine On
+    #如果请求真实，访问
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    #如果访问不存在，访问INDEX
+    RewriteRule . index.php
+</IfModule>
